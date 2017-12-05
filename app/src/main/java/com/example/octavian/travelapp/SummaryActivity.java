@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class SummaryActivity extends AppCompatActivity {
 
-    String arrivalDate, departureDate, country, quote;
+    String arrivalDate, departureDate, country, quote, email;
     int petsNumber, childrenNumber, adultsNumber, cost;
 
     @Override
@@ -27,6 +27,7 @@ public class SummaryActivity extends AppCompatActivity {
         petsNumber = (int) bin.get("PETSNUMBER");
         childrenNumber = (int) bin.get("CHILDRENNUMBER");
         adultsNumber = (int) bin.get("ADULTSNUMBER");
+        email = (String) bin.get("EMAIL");
 
         cost = new Random().nextInt(Integer.parseInt(quote));
         System.out.println(cost);
@@ -38,6 +39,7 @@ public class SummaryActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.arrivalDateTextView)).setText(arrivalDate);
         ((TextView) findViewById(R.id.departureDateTextView)).setText(departureDate);
         ((TextView) findViewById(R.id.costTextView)).setText(String.valueOf(cost));
+        ((TextView) findViewById(R.id.emailTextView)).setText(email);
 
     }
 }

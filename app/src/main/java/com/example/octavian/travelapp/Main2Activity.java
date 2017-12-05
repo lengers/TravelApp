@@ -10,9 +10,10 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity {
-    String arrivalDate, departureDate, country, quote;
+    String arrivalDate, departureDate, country, quote, email;
     int petsNumber = 0;
     int childrenNumber = 0;
     int adultsNumber = 1;
@@ -32,6 +33,7 @@ public class Main2Activity extends AppCompatActivity {
         final EditText childrenEditText = findViewById(R.id.childrenEditText);
         final EditText petsEditText =  findViewById(R.id.petsEditText);
         final EditText adultsEditText = findViewById(R.id.adultsEditText);
+        final EditText emailEditText = findViewById(R.id.emailEditText);
 
         ((CheckBox) findViewById(R.id.checkBox)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -52,16 +54,21 @@ public class Main2Activity extends AppCompatActivity {
             public void onClick(View v) {
                 adultsNumber = Integer.parseInt(adultsEditText.getText().toString());
                 childrenNumber = Integer.parseInt(childrenEditText.getText().toString());
-
-                Intent intent = new Intent(Main2Activity.this, SummaryActivity.class);
-                intent.putExtra("ARRIVALDATE", arrivalDate);
-                intent.putExtra("DEPARTUREDATE", departureDate);
-                intent.putExtra("COUNTRY", country);
-                intent.putExtra("QUOTE", quote);
-                intent.putExtra("PETSNUMBER", petsNumber);
-                intent.putExtra("CHILDRENNUMBER", childrenNumber);
-                intent.putExtra("ADULTSNUMBER", adultsNumber);
-                startActivity(intent);
+                if (emailEditText.getText().toString().matches("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")) {
+                    email = emailEditText.getText().toString();
+                    Intent intent = new Intent(Main2Activity.this, SummaryActivity.class);
+                    intent.putExtra("EMAIL", email);
+                    intent.putExtra("ARRIVALDATE", arrivalDate);
+                    intent.putExtra("DEPARTUREDATE", departureDate);
+                    intent.putExtra("COUNTRY", country);
+                    intent.putExtra("QUOTE", quote);
+                    intent.putExtra("PETSNUMBER", petsNumber);
+                    intent.putExtra("CHILDRENNUMBER", childrenNumber);
+                    intent.putExtra("ADULTSNUMBER", adultsNumber);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(Main2Activity.this, "Your email address is invalid.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
